@@ -42,8 +42,33 @@ const addItem = (req, res) => {
   return res.json({message: 'Request is missing name property.'});
 };
 
+// itemin muokkaus id:n perusteella
+const editItem = (req, res) => {
+  console.log('editItem request body', req.body);
+  const item = items.find((item) => item.id == req.params.id);
+  if (item) {
+    item.name = req.body.name;
+    res.json({message: 'Item updated.'});
+  } else {
+    res.status(404).json({message: "Item not found"});
+  }
+};
 
-// TODO: put & delete endpoints
+// itemin poisto id:n perusteella
+const deleteItem = (req, res) => {
+  console.log('deleteItem', req.params.id);
+  const index = items.findIndex((item) => item.id == req.params.id);
+  //console.log('index', index);
+  // findIndex returns -1 if item is not found
+  if (index !== -1) {
+    // remove one item from array based on index
+    items.splice(index, 1);
+    res.json({message: 'Item deleted.'});
+  } else {
+    res.status(404).json({message: "Item not found"});
+  }
+}
+
 // TODO: lisää users.js, ks. materiaali week 2
 
-export {getItems, getItemById, addItem};
+export {getItems, getItemById, addItem, editItem, deleteItem};

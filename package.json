@@ -1,7 +1,7 @@
 {
   "name": "week1-node-express",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/modules/index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",

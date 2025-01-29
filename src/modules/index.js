@@ -1,6 +1,7 @@
 
 import express from 'express';
-import {addItem, getItemById, getItems} from './items.js';
+import {addItem, deleteItem, editItem, getItemById, getItems} from './items.js';
+import {addUser, getUsers, login} from './users.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -20,8 +21,17 @@ app.get('/api/', (req, res) => {
 app.get('/api/items', getItems);
 app.get('/api/items/:id', getItemById);
 app.post('/api/items', addItem);
+app.put('/api/items/:id', editItem);
+app.delete('/api/items/:id', deleteItem);
+
+// Users resurssin päätepisteet
+app.get('/api/users', getUsers);
+app.post('/api/users', addUser);
+app.post('/api/users/login', login);
 
 
+// Alla olevat eivät ole varsinaisia sovelluksessa tarvittavia ominaisuuksia,
+// mutta säästetty esimerkkeinä expressin toiminnasta
 // syötteen lukeminen reittiparametreista (route params)
 app.get('/api/sum/:num1/:num2', (req, res) => {
   console.log(req.params);
@@ -62,8 +72,6 @@ app.post('/api/moro', (req, res) => {
   res.json({reply: 'no Moro ' + req.body.sender});
 });
 
-// TODO: lisää oma reitti ja toiminnallisuus omaa mielikuvitusta käyttäen, niin
-// ensimmäisen viikon harkka ok
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
