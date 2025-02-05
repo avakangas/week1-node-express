@@ -1,0 +1,72 @@
+
+# Testing http requests with Visual Studio Code REST Client extension
+
+## First random tests
+
+### Palvelimen juuri
+GET http://localhost:3000
+
+### morotesti
+GET http://localhost:3000/moro
+
+### morotesti POST
+POST http://localhost:3000/api/moro
+content-type: application/json
+
+{
+  "sender": "kalle",
+  "message": "testitervehdys"
+}
+
+## Items (test resource/endpoints using hard-coded mock data)
+
+### get all items
+GET http://localhost:3000/api/items
+
+### get item by id
+GET http://localhost:3000/api/items/3
+
+### post a new item
+POST http://localhost:3000/api/items
+content-type: application/json
+
+{
+  "name": "Sitruuna"
+}
+
+### modify an existing item (by using item's id as a parameter in url)
+PUT http://localhost:3000/api/items/3
+content-type: application/json
+
+{
+  "name": "Päärynä"
+}
+
+### delete an item (by id)
+DELETE http://localhost:3000/api/items/2
+
+## Users resource endpoints
+
+### get all users
+GET http://localhost:3000/api/users
+
+### TODO: get user by id
+
+### add user
+POST http://localhost:3000/api/users
+content-type: application/json
+
+{
+  "username": "Uusi käyttäjä",
+  "password": "salakala",
+  "email": "newuser@example.com"
+}
+
+### user login
+POST http://localhost:3000/api/users/login
+content-type: application/json
+
+{
+  "username": "Uusi käyttäjä",
+  "password": "salakala"
+}
