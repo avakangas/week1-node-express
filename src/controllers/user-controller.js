@@ -1,4 +1,3 @@
-
 import {insertUser, selectAllUsers, selectUserById, selectUserByNameAndPassword} from '../models/user-model.js';
 
 // kaikkien käyttäjätietojen haku
@@ -79,18 +78,4 @@ const deleteUser = (req, res) => {
   }
 };
 
-// user authentication (login)
-const login = async (req, res) => {
-  const {username, password} = req.body;
-  if (!username) {
-    return res.status(401).json({message: 'Username missing.'});
-  }
-  const user = await selectUserByNameAndPassword(username, password);
-  if (user) {
-    res.json({message: 'login ok', user});
-  } else {
-    res.status(401).json({message: 'Bad username/password.'});
-  }
-};
-
-export {getUsers, getUserById, addUser, editUser, deleteUser, login};
+export {getUsers, getUserById, addUser, editUser, deleteUser};
