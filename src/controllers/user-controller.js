@@ -71,19 +71,20 @@ const editUser = (req, res) => {
   }
 };
 
-// Userin poisto id:n perusteella (TODO: käytä DB)
-const deleteUser = (req, res) => {
+// Userin poisto id:n perusteella
+const deleteUser = async (req, res, next) => {
   console.log('deleteUser', req.params.id);
-  const index = users.findIndex((user) => user.id == req.params.id);
-  //console.log('index', index);
-  // findIndex returns -1 if user is not found
-  if (index !== -1) {
-    // remove one user from array based on index
-    users.splice(index, 1);
-    res.json({message: 'User deleted.'});
-  } else {
-    res.status(404).json({message: 'User not found'});
+  try {
+    const result = await deleteUserById(req.params.id);
+    if (result) {
+      res.json({ message: 'User deleted.' });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
-export {getUsers, getUserById, addUser, editUser, deleteUser};
+export { getUsers, getUserById, addUser, editUser, deleteUser };
+
