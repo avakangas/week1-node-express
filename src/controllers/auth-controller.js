@@ -18,9 +18,14 @@ const login = async (req, res, next) => {
   if (user) {
     const match = await bcrypt.compare(password, user.password);
     if (match) {
+      // ennen tokenin generointia ja
+      // käyttäjätietojen lähettämistä vastauksessa,
+      // poistetaan salasana niistä
+      delete user.password;
       const token = jwt.sign(user, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
+
       return res.json({message: 'login ok', user, token});
     }
   }

@@ -1,3 +1,4 @@
+
 import express from 'express';
 import cors from 'cors';
 import userRouter from './routes/user-router.js';
@@ -18,12 +19,8 @@ app.use('/', express.static('public'));
 // middleware, joka lukee json data POST-pyyntöjen rungosta (body)
 app.use(express.json());
 
-// rest-apin resurssit tarjoillaan /api/-polun alla
-app.get('/api/', (req, res) => {
-  console.log('get-pyyntö apin juureen havaittu');
-  console.log(req.url);
-  res.send('Welcome to my REST API!');
-});
+// rest-apin dokumentaatio tarjoillaan /api-juuripolun alla
+app.use('/api', express.static('docs'));
 
 // Users resurssin päätepisteet (endpoints)
 app.use('/api/users', userRouter);
